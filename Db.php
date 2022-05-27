@@ -6,7 +6,7 @@ class Db
 {
     private $_connection;
     private static $_instance; // single instance
-    private $_host = 'localhost';
+    private $_host = '127.0.0.1';
     private $_username = 'root';
     private $_password = '';
     private $_database = 'app-stay';
@@ -22,9 +22,9 @@ class Db
     public function __construct()
     {
         $this->_connection = new mysqli($this->_host, $this->_username, $his->_password, $this->_database);
-        if(mysqli_connect_error())
+        if($this->_connection->connect_errno)
         {
-            trigger_error("Failed to connect to the Database ".mysqli_connect_error(), E_USER_ERROR);
+            trigger_error("Failed to connect to the Database ".$this->_connection->connect_error, E_USER_ERROR);
             return;
         }
 
