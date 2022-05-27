@@ -6,9 +6,9 @@ class Db
 {
     private $_connection;
     private static $_instance; // single instance
-    private $_host = '127.0.0.1';
-    private $_username = 'root';
-    private $_password = '';
+    private $_host = 'localhost';
+    private $_username = 'admin';
+    private $_password = 'mysql_admin';
     private $_database = 'app-stay';
 
     private function getInstance()
@@ -21,11 +21,16 @@ class Db
 
     public function __construct()
     {
-        $this->_connection = new mysqli($this->_host, $this->_username, $his->_password, $this->_database);
-        if($this->_connection->connect_errno)
+        try
         {
-            trigger_error("Failed to connect to the Database ".$this->_connection->connect_error, E_USER_ERROR);
-            return;
+            $this->_connection = new PDO('mysql:host='.$this->_host.';dbname='.$this->_database, $this->_username, $this->_password);
+            $this->_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $this->_connection;
+
+        }catch(PDOException $e){
+
+            die("Database error ".$e->getMessage());
+
         }
 
     }
@@ -37,3 +42,4 @@ class Db
         return $this->getInstance();
     }
 }
+

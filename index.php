@@ -7,3 +7,6 @@ $db = new Db();
 
 // get a datatabase connection
 $db->getConnection();
+
+
+
