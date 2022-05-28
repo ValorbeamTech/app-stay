@@ -2,22 +2,13 @@
 
 
 
-class Db 
+class MysqlDB 
 {
     private $_connection;
-    private static $_instance; // single instance
     private $_host = 'localhost';
     private $_username = 'admin';
     private $_password = 'mysql_admin';
     private $_database = 'app-stay';
-
-    private function getInstance()
-    {
-        if(!self::$_instance){
-            self::$_instance = new self();
-        }
-        return self::$_instance;
-    }
 
     public function __construct()
     {
@@ -26,7 +17,6 @@ class Db
             $this->_connection = new PDO('mysql:host='.$this->_host.';dbname='.$this->_database, $this->_username, $this->_password);
             $this->_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $this->_connection;
-
         }catch(PDOException $e){
 
             die("Database error ".$e->getMessage());
@@ -39,7 +29,15 @@ class Db
 
     public function getConnection()
     {
-        return $this->getInstance();
+        if(!$this->_connection){
+            $this->connection = new self();
+        }
+
+        if($this->_connection instanceof PDO)
+        {
+            return $this->_connection;
+        }
+        
     }
 }
 
