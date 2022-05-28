@@ -77,10 +77,25 @@ class User
 
         }
     }
-
+    // this works
     public function updateUser($params=[])
     {
-
+        if(is_array($params) && count($params)){
+            $sql = "UPDATE users SET ";
+            $sql_proceed = "";
+            foreach($params as $col=>$key){
+                $sql .= "$col=".":$col,";
+            }
+            $sql = rtrim($sql, ",");
+            $sql .= " WHERE id = $this->id";
+            try
+            {
+                $stmt = $this->dbHandler->prepare($sql);
+                $stmt = $stmt->execute($params);
+            }catch(Exception $e){
+                die("Database update failed ".$e->getMessage());
+            }
+        }
     }
 
     public function deleteUser()

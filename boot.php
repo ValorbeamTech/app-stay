@@ -11,8 +11,8 @@ $db->getConnection();
 
 $user = new User(7, $db->getConnection());
 
-// $params['firstname'] = 'Joseph';
-// $params['middlename'] = 'Ernest';
+$params['firstname'] = 'Joseph update';
+$params['middlename'] = 'Ernest update';
 // $params['lastname'] = 'Tawete';
 // $params['email'] = 'example@sample.com';
 // $params['username'] = 'jtawete';
@@ -27,7 +27,7 @@ $user = new User(7, $db->getConnection());
 
 // print_r($user->getUserData());
 
-echo phpinfo();
+$user->updateUser($params);
 
 
 
