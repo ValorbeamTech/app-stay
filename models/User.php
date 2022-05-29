@@ -20,6 +20,7 @@ class User
     public $user_status = array();
     public $user_role = array();
     protected $user;
+
     // this works
     public function __construct($id=null, $db)
     {
@@ -39,10 +40,12 @@ class User
         }
     }
 
+    // this works
     public function getUserData()
     {
         if(!empty($this->user)) return $this->user;
     }
+
     // this works
     public function createUser($params=[])
     {
@@ -77,6 +80,7 @@ class User
 
         }
     }
+    
     // this works
     public function updateUser($params=[])
     {
@@ -98,18 +102,44 @@ class User
         }
     }
 
+    // this works
     public function deleteUser()
     {
-
+        try
+        {
+            $sql = "DELETE FROM users WHERE id = :id";
+            $stmt = $this->dbHandler->prepare($sql);
+            $stmt = $stmt->execute([':id'=>$this->id]);
+        }catch(Exception $e){
+            die("Database delete failed ".$e->getMessage());
+        }
     }
 
+    // this works
     public function getUser($params=[])
     {
+        $newUser = array();
+        foreach($params as $key){
+            $pos = array_search($key, array_keys($this->getUserData()));
+            $newUser[$key] = $this->getUserData()[$pos][$key];
+        }
 
+        return $newUser;
     }
 
+    // this works
     public function queryUser($sql, $params=[])
     {
+        try
+        {
+            $stmt = $this->dbHandler->prepare($sql);
+            $stmt->execute($params);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
 
+        }catch(Exception $e){
+            die("Database query failed ".$e->getMessage());
+        }
     }
+
 }

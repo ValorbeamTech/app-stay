@@ -9,10 +9,10 @@ $db = new MysqlDB();
 // get a datatabase connection
 $db->getConnection();
 
-$user = new User(7, $db->getConnection());
+$user = new User(2, $db->getConnection());
 
-$params['firstname'] = 'Joseph update';
-$params['middlename'] = 'Ernest update';
+// $params['firstname'] = 'Joseph update';
+// $params['middlename'] = 'Ernest update';
 // $params['lastname'] = 'Tawete';
 // $params['email'] = 'example@sample.com';
 // $params['username'] = 'jtawete';
@@ -27,7 +27,9 @@ $params['middlename'] = 'Ernest update';
 
 // print_r($user->getUserData());
 
-$user->updateUser($params);
+// $user->updateUser($params);
+
+// var_dump($user->queryUser("SELECT username, email FROM users WHERE visible = :visible ", ['visible'=>1]));
 
 
 
