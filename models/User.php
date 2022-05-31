@@ -10,6 +10,7 @@ class User
     public $lastname;
     public $email;
     public $username;
+    public $passwd;
     public $phone;
     public $birthdate;
     public $createdAt;
@@ -51,7 +52,7 @@ class User
     {
         try
         {
-            $sql  =  "INSERT INTO users(firstname, middlename, lastname, email, username, phone, birthdate, createdAt, updatedAt, createdBy, updatedBy, visible, user_status, user_role) VALUES(:firstname, :middlename, :lastname, :email, :username, :phone, :birthdate, :createdAt, :updatedAt, :createdBy, :updatedBy, :visible, :user_status, :user_role)";
+            $sql  =  "INSERT INTO users(firstname, middlename, lastname, email, username, passwd, phone, birthdate, createdAt, updatedAt, createdBy, updatedBy, visible, user_status, user_role) VALUES(:firstname, :middlename, :lastname, :email, :username, :passwd, :phone, :birthdate, :createdAt, :updatedAt, :createdBy, :updatedBy, :visible, :user_status, :user_role)";
             $stmt =  $this->dbHandler->prepare($sql);
 
             $this->firstname   =  $params['firstname'];
@@ -59,6 +60,7 @@ class User
             $this->lastname    =  $params['lastname'];
             $this->email       =  $params['email'];
             $this->username    =  $params['username'];
+            $this->passwd      =  md5($params['password']);
             $this->phone       =  $params['phone'];
             $this->birthdate   =  $params['birthdate'];
             $this->createdAt   =  date('Y-m-d H:i:s');
@@ -76,7 +78,7 @@ class User
 
         }catch(Exception $e){
 
-            die("Data fetching failed: ".$e->getMessage());
+            die("User creation failed: ".$e->getMessage());
 
         }
     }

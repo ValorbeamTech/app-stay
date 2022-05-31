@@ -25,9 +25,9 @@ $user = new User(2, $db->getConnection());
 
 // echo $user->createUser($params);
 
-// print_r($user->getUserData());
+ // print_r($user->getUserData());
 
-// $user->updateUser($params);
+// print_r($user->updateUser($params));
 
 // var_dump($user->queryUser("SELECT username, email FROM users WHERE visible = :visible ", ['visible'=>1]));
 
