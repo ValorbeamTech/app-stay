@@ -9,7 +9,7 @@ class Auth
     
     public function authenticate($username, $password)
     {
-
+        $user = $this->model->getUserData();
     }
 
     public function login($token)
